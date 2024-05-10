@@ -1,38 +1,59 @@
+import { useState } from "react";
 
+const Lorem = () => {
+    const [val, setVal] = useState("");
+    const [paragraphs, setParagraphs] = useState([]);
 
-const Body =()=>{
-    return(
+    const generate = () => {
+        const num = parseInt(val);
+        const loremIpsumText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vehicula enim eu ante varius ultricies. Nulla facilisi. Suspendisse vel convallis velit. Nulla quis semper metus. Mauris dictum diam magna, at egestas ipsum consectetur a. Sed id fringilla purus. Aliquam eleifend ipsum ac neque pharetra, vitae tincidunt sem eleifend. Sed tristique, metus eget malesuada volutpat, justo velit consequat nisi, vitae efficitur ligula libero id magna. Donec dictum eleifend ligula, et interdum ipsum. Integer nec libero odio. Maecenas in vestibulum quam. Ut ac libero leo. Cras vehicula orci vel odio consequat faucibus.";
+
+        const loremIpsumSentences = loremIpsumText.split('. '); // Split Lorem Ipsum text into sentences
+        const selectedSentences = [];
+
+        
+        for (let i = 0; i < num; i++) {
+            let paragraph = '';
+            const randomSentenceCount = Math.floor(Math.random() * loremIpsumSentences.length) + 1;
+            for (let j = 0; j < randomSentenceCount; j++) {
+                const randomIndex = Math.floor(Math.random() * loremIpsumSentences.length);
+                paragraph += loremIpsumSentences[randomIndex] + '. ';
+            }
+            selectedSentences.push(paragraph);
+        }
+
+        setParagraphs(selectedSentences);
+    };
+
+    return (
         <>
-
-            <div>
-            <img src="https://franchiseindia.s3.ap-south-1.amazonaws.com/uploads/content/wi/art/health-wellness-banner-ca24683a23.jpg" className=" m-auto" alt=""/>
+            <h1 className="m-15 font-bold text-2xl text-pink-800 text-center">
+                TIRED OF BORING LOREM IPSUM?
+            </h1>
+            <div className="flex justify-center align-middle">
+                <label>Paragraphs:</label>
+                <input
+                    type="number"
+                    className="bg-slate-600 m-2 h-10"
+                    value={val}
+                    onChange={(e) => {
+                        setVal(e.target.value);
+                    }}
+                />
+                <button className=" h-10 m-10 bg-green-900 text-white rounded-lg w-[100px]" onClick={generate}>
+                    Generate
+                </button>
             </div>
-
-            <div className=" bg-red-800 text-white m-10">
-                <h1 className=" text-4xl m-auto p-5 text-center font-sans font-bold">Think Health. Think Message</h1>
-                <p className="m-auto text-center font-serif p-10 text-2xl">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi, culpa iste! Ullam, inventore alias? Vitae facilis accusantium, unde qui ipsum rem odio, enim, soluta tempora doloribus fugiat iure dolore illum?</p>
-                <div className="flex m-auto p-5 justify-evenly">
-                    <button className=" bg-blue-800 cursor-pointer">LEARN MORE ABOUT US</button>
-                    <button className="  bg-blue-800 cursor-pointer"> CONTACT TODAY</button>
-                </div>
-            </div>
-
-            <div>
-                <p className=" text-red-500 m-10 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolorum fuga adipisci, blanditiis repellat nesciunt ut inventore commodi? Ducimus, id quidem doloremque aspernatur consequatur sint corporis omnis veniam inventore, similique possimus pariatur reprehenderit cupiditate eligendi consectetur eos dolore beatae necessitatibus!</p>
-                <p className="m-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolorum fuga adipisci, blanditiis repellat nesciunt ut inventore commodi? Ducimus, id quidem doloremque aspernatur consequatur sint corporis omnis veniam inventore, similique possimus pariatur reprehenderit cupiditate eligendi consectetur eos dolore beatae necessitatibus!</p>
-                <p className="m-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolorum fuga adipisci, blanditiis repellat nesciunt ut inventore commodi? Ducimus, id quidem doloremque aspernatur consequatur sint corporis omnis veniam inventore, similique possimus pariatur reprehenderit cupiditate eligendi consectetur eos dolore beatae necessitatibus!</p>
-            </div>
-
-            <div className="border-t-[3px] m-10">
-
-                <h1 className=" text-red-400 text-center p-2">    family wellness massage thraphy</h1>
-                <p className="text-center p-2">    abc@gmail.com </p>
-                <p className="text-center p-2">   phone :: 74673658325782xx</p>
-
-            </div>
+            <div className=" m-10 mt-4 text-white gap-20 ">
+                {paragraphs.map((paragraph, index) => (
             
+                    <p key={index} className=" m-10 bg-green-100 text-black p-10">{paragraph}</p>
+                 
+                   
+                ))}
+            </div>
         </>
-    )
-}
+    );
+};
 
-export default Body;
+export default Lorem;
